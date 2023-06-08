@@ -11,19 +11,19 @@
             <form class="login-form" action="{{ route('auth.register') }}" method="post">
                 @csrf
                 <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
-                @include('layouts.includes.partials._errors')
+                @include('layouts.includes.partials._messages')
 
                 <div class="form-group">
-                    <input class="form-control" type="text" name="user_name" placeholder="Name">
+                    <input class="form-control" type="text" name="user_name" placeholder="Name" required>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="user_email" placeholder="Email">
+                    <input class="form-control" type="text" name="user_email" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="user_phone" placeholder="Mobile" autofocus>
+                    <input class="form-control" type="text" name="user_phone" placeholder="Mobile" autofocus required>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="password" name="password" placeholder="Password">
+                    <input class="form-control" type="password" name="password" placeholder="Password" required>
                 </div>
 
                 <div class="form-group btn-container">

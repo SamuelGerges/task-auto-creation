@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Repositories\UserRepositry;
+use App\Repositories\IUserRepositry;
 use Illuminate\Support\Facades\Auth;
 
 class AuthService
@@ -10,18 +10,19 @@ class AuthService
 
     protected $userRepositry;
 
-    public function __construct(UserRepositry $userRepositry)
+    public function __construct(IUserRepositry $userRepositry)
     {
         $this->userRepositry = $userRepositry;
     }
 
-
     public function register($data)
     {
         $user = $this->userRepositry->create($data);
+
         return [
             "success" => [
-                'user' => $user
+                "message" => "You are registered successfully, please login",
+                'data'    => $user
             ],
         ];
     }
@@ -31,7 +32,7 @@ class AuthService
     {
         $user = $this->userRepositry->getUserByEmail($data);
 
-        if (!$user) {
+        if (!is_object($user)) {
             return [
                 'error' => 'the email is not existed'
             ];
@@ -41,6 +42,12 @@ class AuthService
         if ($user->is_blocked) {
             return [
                 'error' => 'you are blocked ',
+            ];
+        }
+
+        if ($user->can_not_login_until > date('Y-m-d H:i:s')) {
+            return [
+                'error' => 'you can not login until ' . $user->can_not_login_until,
             ];
         }
 
@@ -58,7 +65,7 @@ class AuthService
                 ]);
 
                 return [
-                    "error" => 'try again after 30 seconds in ',
+                    "error" => 'invalid email or password, try again after 30 seconds in ' . $user->can_not_login_until,
                 ];
             }
 
@@ -68,15 +75,11 @@ class AuthService
                 ]);
 
                 return [
-                    'error' => 'the account is blocked'
+                    'error' => 'invalid email or password, the account is blocked'
                 ];
             }
 
-            if ($user->can_not_login_until > date('Y-m-d H:i:s')) {
-                return [
-                    'error' => 'you can not login until ' . $user->can_not_login_until,
-                ];
-            }
+
             return [
                 "error" => 'invalid email or password'
             ];
@@ -99,21 +102,23 @@ class AuthService
 
         return [
             "success" => [
-                'user' => $this->userRepositry->getUser($user->id)
+                'user'    => $this->userRepositry->getUserById($user->id),
+                'message' => "You are Login Successfully"
             ],
         ];
 
     }
 
-
     public function logout($id)
     {
-        $user = Auth::loginUsingId($id);
-        if (!$user) {
+        $user = $this->userRepositry->getUserById($id);
+
+        if (!is_object($user)) {
             return [
                 "error" => "Failed in logout",
             ];
         }
+
         $this->userRepositry->update($user, [
             'login_count' => $user->login_count - 1,
         ]);

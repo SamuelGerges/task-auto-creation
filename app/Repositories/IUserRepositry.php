@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Interfaces;
+namespace App\Repositories;
 
 
-interface IUser
+interface IUserRepositry
 {
     public function getUserByEmail($data);
 
@@ -11,8 +11,8 @@ interface IUser
 
     public function update($userObj, $data);
 
-    public function getUser($userId);
+    public function getUserById($userId);
 
-    public function getUsers($userId);
+    public function getUsers();
 
 }

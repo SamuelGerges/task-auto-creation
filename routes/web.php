@@ -3,12 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
 Route::group([
 
 ],function (){
@@ -25,7 +19,9 @@ Route::group([
     'middleware' => 'auth',
 ],function (){
 
-    Route::get('home',[\App\Http\Controllers\Site\HomeController::class,'index'])->name('site.home');
+    Route::get('/',[\App\Http\Controllers\Site\HomeController::class,'index'])->name('site.home');
+    Route::get('change-block-account/{id}',[\App\Http\Controllers\Site\HomeController::class,'changeBlockInAccount'])
+        ->name('site.change.block');
     Route::get('logout', [\App\Http\Controllers\Site\AuthController::class,'logout'])->name('site.logout');
 
 });

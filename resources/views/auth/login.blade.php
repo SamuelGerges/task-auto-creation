@@ -11,17 +11,13 @@
             <form class="login-form" action="{{ route('auth.login') }}" method="post">
                 @csrf
                 <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
-                @include('layouts.includes.partials._errors')
-                @if($error = session()->get('error'))
-                    <div class="alert alert-danger">
-                        <p class="mb-0">{{ $error }}</p>
-                    </div>
-                @endif
+                @include('layouts.includes.partials._messages')
+
                 <div class="form-group">
-                    <input class="form-control" type="text" name="user_email" placeholder="Email">
+                    <input class="form-control" type="text" name="user_email" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="password" name="password" placeholder="Password">
+                    <input class="form-control" type="password" name="password" placeholder="Password" required>
                 </div>
                 <div class="form-group">
                     <div class="utility">
@@ -33,7 +29,8 @@
                 </div>
                 <br>
                 <div class="form-group btn-container">
-                    <a class="btn btn-info btn-block" href="{{route('auth.getRegister')}}"><i class="fa fa-user-plus fa-lg fa-fw"></i>SIGN UP</a>
+                    <a class="btn btn-info btn-block" href="{{route('auth.getRegister')}}"><i
+                                class="fa fa-user-plus fa-lg fa-fw"></i>SIGN UP</a>
                 </div>
             </form>
         </div>

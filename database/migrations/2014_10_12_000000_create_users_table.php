@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('user_phone')->unique()->index();
             $table->string('password');
             $table->integer('fail_number')->nullable();
-            $table->time('can_not_login_until')->nullable();
+            $table->dateTime('can_not_login_until')->nullable();
             $table->boolean('is_blocked')->nullable();
             $table->boolean('login_count')->nullable();
             $table->timestamps();

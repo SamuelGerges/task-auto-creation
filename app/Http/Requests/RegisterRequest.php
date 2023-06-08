@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests;
 
 
 
-class LoginRequest extends ApiRequest
+class RegisterRequest extends CustomFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,14 @@ class LoginRequest extends ApiRequest
     public function rules()
     {
         return [
-            'user_email' => 'required|email',
-            'password' => 'required',
+            'user_name'  => 'required|string',
+            'user_email' => 'required|email|unique:users,user_email',
+            'user_phone' => 'required|unique:users,user_phone',
+            'password'   => 'required',
         ];
     }
+
+
 
 
 

@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Site\LoginRequest;
-use App\Http\Requests\Site\RegisterRequest;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Services\AuthService;
-use Illuminate\Http\Request;
-use mysql_xdevapi\Session;
 
 class AuthController extends Controller
 {
@@ -25,11 +23,13 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $data = $request->validated();
-        $res  = $this->authService->register($data);
-        if ($res["success"]["user"]) {
-            return redirect()->route('auth.getLogin');
-        }
+        $data      = $request->validated();
+        $response  = $this->authService->register($data);
+
+        session()->flash('success', $response["success"]["message"]);
+
+
+        return redirect()->route('auth.getLogin');
     }
 
 
@@ -47,11 +47,8 @@ class AuthController extends Controller
             session()->flash('error', $response["error"]);
             return redirect()->back();
         }
-
-        if ($response["success"]["user"]) {
-            return redirect()->route('site.home');
-        }
-
+        session()->flash('success',$response['success']['message']);
+        return redirect()->route('site.home');
     }
 
 
@@ -63,6 +60,7 @@ class AuthController extends Controller
             session()->flash('error', $response["error"]);
             return redirect()->back();
         }
+
         return redirect()->route('auth.getLogin');
     }
 }

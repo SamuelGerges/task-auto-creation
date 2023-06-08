@@ -1,3 +1,24 @@
+@if ($errors->any())
+    <div class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+            <p class="mb-0">{{ $error }}</p>
+        @endforeach
+    </div>
+@endif
+
+@if($error = session()->get('error'))
+    <div class="alert alert-danger">
+        <p class="mb-0">{{ $error }}</p>
+    </div>
+@endif
+
+
+@if($msg = session()->get('success'))
+    <div class="alert alert-success">
+        <p class="mb-0">{{ $msg }}</p>
+    </div>
+@endif
+
 @if (session('success'))
 
     <script>
@@ -24,3 +45,4 @@
     </script>
 
 @endif
+

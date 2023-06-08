@@ -33,7 +33,7 @@ class ResponsesHelper
             'status' => false,
             'code'   => (int)$code,
             'msg'    => $msg
-        ])->setStatusCode(200);
+        ])->setStatusCode($code);
     }
 
     public static function returnValidationError($code = "400", $validator)

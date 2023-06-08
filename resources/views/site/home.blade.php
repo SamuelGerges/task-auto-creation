@@ -11,9 +11,6 @@
             <div class="tile shadow">
 
                 <div class="row mb-2">
-                    <div class="col-md-12">
-                        <a href="" class="btn btn-primary"><i class="fa fa-plus"></i> Add New Album</a>
-                    </div>
                 </div><!-- end of row -->
                 <div class="row">
                     <div class="col-md-12">
@@ -25,15 +22,26 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Mobile</th>
+                                    <th>Block</th>
                                 </tr>
                                 </thead>
-                                @isset($users)
-                                    @foreach($users as $key => $user)
+                                @isset($users['success']['users'])
+                                    @foreach($users['success']['users'] as $key => $user)
                                         <tr>
                                             <td>{{ $key + 1  }}</td>
                                             <td>{{ $user->user_name }}</td>
                                             <td>{{ $user->user_email }}</td>
                                             <td>{{ $user->user_phone }}</td>
+                                            <td>
+                                                <a href="{{route('site.change.block',$user->id)}}"
+                                                   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">
+                                                    @if($user -> is_blocked == 1)
+                                                        Active
+                                                    @else
+                                                        Block
+                                                    @endif
+                                                </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 @endisset

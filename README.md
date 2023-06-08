@@ -30,6 +30,12 @@
 
     Sanctum Package for api
 
+### video Of task 
+    https://youtu.be/5_9GCw9B96U
+
+### postman 
+    Auto Creations.postman_collection.json
+
 ### Usage Skills  in Blog Project
 
     Repositry Design Pattern .
@@ -37,12 +43,20 @@
 
 ### About Task
 
-you can 
 user can make a register and login by email and password .
 
-Login Form : the Scenario will be as follows
+features : 
 - if user tries to enter his password 3 times wrong, an error message should say try again after 30 sec.
 - if he tries again with a correct password for sure pass him, otherwise, the account should be blocked.
+- if user is blocked , then try to access of homepage ,the system will be rejects it.
 - A user cannot be logged in on more than two devices at the same time, so he cannot log in on a third device.
 - after login, homepage is existed list from users
-- 
+- list of user that registered in the system .
+
+End points of Api 
+- user can register.
+- user can login .
+- user can logout
+- user can arrive in home page
+- admin can change the status of the user if it was blocked or no.
+

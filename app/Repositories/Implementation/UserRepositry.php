@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Implementation;
 
-use  App\Interfaces\IUser;
 use App\Models\User;
+use App\Repositories\IUserRepositry;
 use Illuminate\Support\Facades\Hash;
 
-class UserRepositry implements IUser
+class UserRepositry implements IUserRepositry
 {
     public function getUserByEmail($data)
     {
@@ -24,28 +24,28 @@ class UserRepositry implements IUser
             'user_phone' => $data['user_phone'],
             'password'   => Hash::make($data['password']),
         ]);
-        return $this->getUser($user->id);
+        return $this->getUserById($user->id);
     }
 
-    public function update($userObj, $data){
+    public function update($userObj, $data)
+    {
         $userObj->update($data);
     }
 
-    public function getUser($userId)
+    public function getUserById($userId)
     {
         return User::query()
-            ->select('id','user_name','user_email','user_phone')
+            ->select('id', 'user_name', 'user_email', 'user_phone', 'is_blocked','login_count')
             ->where('id', '=', $userId)
             ->limit(1)
             ->first();
     }
 
-    public function getUsers($userId)
+    public function getUsers()
     {
         return User::query()
-            ->select('id','user_name','user_email','user_phone')
-            ->where('id','<>',$userId)
-            ->groupBy('user_email')
+            ->select('id', 'user_name', 'user_email', 'user_phone', 'is_blocked')
+            ->orderByRaw('user_email, user_phone')
             ->get();
     }
 

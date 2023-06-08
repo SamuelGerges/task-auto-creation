@@ -15,11 +15,10 @@
 <script src="{{ asset('admin_assets/plugins/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
 
 
-<script src="{{ asset('js/plugins/pace.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/pace.min.js') }}"></script>
 <!-- Page specific javascripts-->
-<script type="text/javascript" src="{{ asset('js/plugins/chart.js') }}"></script>
-{{--apex chart--}}
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script type="text/javascript" src="{{ asset('assets/js/plugins/chart.js') }}"></script>
+
 
 {{--custom--}}
 <script src="{{ asset('admin_assets/js/custom/index.js') }}"></script>

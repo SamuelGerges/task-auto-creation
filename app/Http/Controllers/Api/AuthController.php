@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Helpers\ResponsesHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\LoginRequest;
-use App\Http\Requests\Api\RegisterRequest;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Services\AuthService;
 use Illuminate\Http\Response;
-use Illuminate\Http\Request;
 
 
 class AuthController extends Controller
@@ -26,17 +25,17 @@ class AuthController extends Controller
         $res  = $this->authService->register($data);
         return ResponsesHelper::returnData(
             [
-                "user"  => $res["success"]["user"],
+                "user"  => $res["success"]["data"],
             ],
-            Response::HTTP_OK,
-            'Registered Successfully'
+            Response::HTTP_CREATED,
+            $res["success"]["message"],
         );
     }
 
     public function login(LoginRequest $request)
     {
-        $data  = $request->validated();
-        $res   = $this->authService->login($data);
+        $data = $request->validated();
+        $res  = $this->authService->login($data);
 
         if (isset($res["error"])) {
             return ResponsesHelper::returnError(
@@ -50,22 +49,25 @@ class AuthController extends Controller
         return ResponsesHelper::returnData([
             "user"  => $res["success"]["user"],
             "token" => $token,
-        ]);
+        ],
+            Response::HTTP_OK,
+            $res["success"]["message"]
+        );
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
 
-//        $request->user()->id
-
-        $id = $request->user()->token()->id;
+        $id = auth()->user()->id;
         $response = $this->authService->logout($id);
+
         if (isset($res["error"])) {
             return ResponsesHelper::returnError(
                 Response::HTTP_NOT_ACCEPTABLE,
                 $response["error"]
             );
         }
+
         return ResponsesHelper::returnData([
             "success"  => $response["success"],
         ]);

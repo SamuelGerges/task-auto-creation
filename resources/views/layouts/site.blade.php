@@ -58,8 +58,7 @@
     {{--magnific-popup--}}
     <link rel="stylesheet" href="{{ asset('admin_assets/plugins/magnific-popup/magnific-popup.css') }}">
 
-{{--    apexchar--}}
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
 
 
     {{--<script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>--}}
@@ -69,8 +68,8 @@
     {{--<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>--}}
     <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/vendors/css/file-uploaders/dropzone.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css/plugins/file-uploaders/dropzone.css')}}">
+{{--    <link rel="stylesheet" type="text/css" href="{{asset('assets/site/vendors/css/file-uploaders/dropzone.min.css')}}">--}}
+{{--    <link rel="stylesheet" type="text/css" href="{{asset('assets/site/css/plugins/file-uploaders/dropzone.css')}}">--}}
 
     <link rel="stylesheet" href="{{ asset('admin_assets/css/custom.css')}}">
 
@@ -129,7 +128,7 @@
 @include('layouts.includes.header')
 @include('layouts.includes.aside')
 <main class="app-content">
-    @include('layouts.includes.partials._session')
+    @include('layouts.includes.partials._messages')
     @yield('content')
     @yield('modal')
 </main>
